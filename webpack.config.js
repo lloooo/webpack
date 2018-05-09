@@ -10,5 +10,16 @@ module.exports = {
     contentBase : "./public",
     historyApiFallback : true,
     inline : true,
+  },
+  module : {
+    rules : [
+      {
+        test : /(\.jsx|\.js)$/,
+        use : {
+          loader : "babel-loader",
+        },
+        exclude : /node_modules/
+      }
+    ]
   }
 };
