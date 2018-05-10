@@ -1,12 +1,14 @@
 const webpack = require('webpack');
 const HtmlWeppackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
   entry : __dirname + "/app/main.js",
   output : {
     path : __dirname + "/public",
     filename : "[name].[hash:4].js",
   },
-  devtool : "eval-source-map",
+  devtool : "null",
 
   devServer : {
     contentBase : "./public",
@@ -48,6 +50,13 @@ module.exports = {
     new HtmlWeppackPlugin({
       template : __dirname + "/app/index.tmpl.html"
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new ExtractTextPlugin("main.css"),
+    new CleanWebpackPlugin("public/*.*", {
+      root : __dirname,
+      verbose : true,
+      dry : false,
+    })
   ]
 };
